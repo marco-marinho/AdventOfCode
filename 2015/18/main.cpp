@@ -3,7 +3,6 @@
 #include <fstream>
 #include <algorithm>
 #include <unordered_map>
-#include <climits>
 
 using std::vector;
 using std::string;
