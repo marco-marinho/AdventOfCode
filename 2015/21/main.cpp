@@ -1,6 +1,3 @@
-//
-// Created by marco on 4/20/22.
-//
 #include <tuple>
 #include <vector>
 #include <iostream>
@@ -51,7 +48,6 @@ int main() {
                           {4, 75},
                           {5, 102}};
 
-    double winning_ratio = double(player_health) / boss_health;
     combination wins;
     combination loses;
     for (auto weapon: weapons) {
