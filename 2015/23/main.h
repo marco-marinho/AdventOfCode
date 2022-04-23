@@ -21,7 +21,7 @@ struct cpu_state{
     int ip = 0;
 };
 
-enum assemly{
+enum assembly{
     hlf,
     tpl,
     inc,
@@ -31,7 +31,7 @@ enum assemly{
 };
 
 struct instruction{
-    assemly ic;
+    assembly ic;
     vector<int> args;
 };
 
