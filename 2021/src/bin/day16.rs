@@ -140,10 +140,10 @@ fn read_literal(bits: &mut BitVec, header: (u8, u8)) -> Packet{
     let buf = collected.to_bytes();
     let mut value:u64 = 0;
     for idx in 0..buf.len() {
-        value = value | (buf[idx] as u64) << 8 * (buf.len()-(idx+1));
+        value |= (buf[idx] as u64) << 8 * (buf.len()-(idx+1));
     }
     let packet = Packet{version: header.0, type_id: TypeID::Literal, length: read + 6, value, sub_packets:Vec::new()};
-    return packet;
+    packet
 }
 
 fn get_hex_stream() -> String{
@@ -174,7 +174,7 @@ enum TypeID{
 
 impl TypeID{
     fn from_u8(number: u8) -> TypeID{
-        return if number == 0 {
+        if number == 0 {
             TypeID::Sum
         } else if number == 1 {
             TypeID::Product
