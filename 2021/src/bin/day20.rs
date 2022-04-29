@@ -1,6 +1,4 @@
 use std::{fs};
-use std::collections::{HashMap, HashSet};
-use std::ops;
 
 fn main() {
     let (enhancements, image) = get_scanners();
@@ -16,9 +14,9 @@ fn main() {
     println!("Task 02: {}", num_lit);
 }
 
-fn enhance(image: &Vec<Vec<bool>>, enhancements: &Vec<bool>, default: bool, times: u64) -> Vec<Vec<bool>>{
+fn enhance(image: &[Vec<bool>], enhancements: &[bool], default: bool, times: u64) -> Vec<Vec<bool>>{
     let mut default = default;
-    let mut image = image.clone();
+    let mut image = image.to_vec();
     for _ in 0 .. times {
         image = enhance_image(&image, enhancements, default);
         default = !default;
@@ -26,7 +24,7 @@ fn enhance(image: &Vec<Vec<bool>>, enhancements: &Vec<bool>, default: bool, time
     image
 }
 
-fn count_lit_pixels(image: &Vec<Vec<bool>>) -> u64{
+fn count_lit_pixels(image: &[Vec<bool>]) -> u64{
     let nrows = image.len();
     let ncols = image[0].len();
     let mut output = 0;
@@ -38,10 +36,10 @@ fn count_lit_pixels(image: &Vec<Vec<bool>>) -> u64{
     output
 }
 
-fn enhance_image(image: &Vec<Vec<bool>>, enhancements: &Vec<bool>, default: bool) -> Vec<Vec<bool>>{
+fn enhance_image(image: &[Vec<bool>], enhancements: &[bool], default: bool) -> Vec<Vec<bool>>{
     let nrows = image.len();
     let ncols = image[0].len();
-    let mut nimage = image.clone();
+    let mut nimage = image.to_vec();
     for i_row in 0 .. nrows{
         for i_col in 0 .. ncols {
             let pixel_val = get_pixel_value(image, i_row, i_col, default);
@@ -52,16 +50,16 @@ fn enhance_image(image: &Vec<Vec<bool>>, enhancements: &Vec<bool>, default: bool
     nimage
 }
 
-fn print_image(image: &Vec<Vec<bool>>){
+fn print_image(image: &[Vec<bool>]){
     for row in image{
-        let buff: String = row.into_iter().map(|x| if !x {'.'} else {'#'}).collect();
+        let buff: String = row.iter().map(|x| if !x {'.'} else {'#'}).collect();
         println!("{}", buff);
     }
     println!();
     println!();
 }
 
-fn get_pixel_value(image: &Vec<Vec<bool>>, row: usize, col: usize, default: bool) -> usize{
+fn get_pixel_value(image: &[Vec<bool>], row: usize, col: usize, default: bool) -> usize{
     let nrows = image.len() as i32;
     let ncols = image[0].len() as i32;
     let mut num = 0;
@@ -83,7 +81,6 @@ fn get_pixel_value(image: &Vec<Vec<bool>>, row: usize, col: usize, default: bool
 }
 
 fn increase_frame(image: &Vec<Vec<bool>>, value: bool, size: usize) -> Vec<Vec<bool>>{
-    let nrows = image.len();
     let ncols = image[0].len();
     let mut new_image: Vec<Vec<bool>> = Vec::new();
     let new_row = vec![value; ncols + (size * 2)];
@@ -104,13 +101,13 @@ fn increase_frame(image: &Vec<Vec<bool>>, value: bool, size: usize) -> Vec<Vec<b
 fn get_scanners() -> (Vec<bool>, Vec<Vec<bool>>){
     let filename = "./data/day20.txt";
     let contents = fs::read_to_string(filename)
-        .expect("Something went wrong reading the file").replace("\r", "");
-    let lines: Vec<String> = contents.split("\n").map(str::to_string).collect();
+        .expect("Something went wrong reading the file").replace('\r', "");
+    let lines: Vec<String> = contents.split('\n').map(str::to_string).collect();
     let mut image: Vec<Vec<bool>> = Vec::new();
     let enhancement: Vec<bool> = lines[0].chars().into_iter().map(|x| x=='#').collect();
-    for idx in 1..lines.len(){
-        let buff: Vec<bool> = lines[idx].chars().into_iter().map(|x| x=='#').collect();
-        if buff.len() > 0 {image.push(buff)}
+    for line in lines.iter().skip(1){
+        let buff: Vec<bool> = line.chars().into_iter().map(|x| x=='#').collect();
+        if !buff.is_empty() {image.push(buff)}
     }
     (enhancement, image)
 }
