@@ -40,15 +40,19 @@ fn dfs(pods: Vec<Amphipod>, depth: i32, cost: i32, ans: &mut Vec<i32>){
         }
     }
     for idx in 0..pods_orig.len(){
+        // If the pod is already in the hall it can only move to room
+        // If the pod is in target room, it might need to leave the room to let another pod leave
         if pods_orig[idx].in_hall() || !pods[idx].should_leave_room(&pods) {
             continue
         }
         let hall_len = 11;
         for hall_pos in 0..hall_len{
             let mut pods = pods_orig.clone();
-            if is_entryway((0, hall_pos)) {continue}
             let target_post = (0, hall_pos);
+            // Pod cannot stand in entryway
+            if is_entryway(target_post) {continue}
             let path = pods[idx].path_to_point(target_post);
+            // Move to position if path is clear and recurse
             if is_path_clear(&path, &pods){
                 let cost_added = pods[idx].move_cost(&path);
                 pods[idx].position = target_post;
