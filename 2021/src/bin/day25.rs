@@ -11,7 +11,7 @@ fn main(){
         moves = nmoves;
         total+=1;
     }
-    println!("{}", total);
+    println!("Task 1: {}", total);
 }
 
 fn do_step(cucumbers: &Vec<Vec<Option<Cucumber>>>) -> (Vec<Vec<Option<Cucumber>>>, u64){
