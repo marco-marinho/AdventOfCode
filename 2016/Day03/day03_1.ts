@@ -1,6 +1,7 @@
-const input: string[] = require('./input');
+import {parseLines} from '../Util';
+let input  = parseLines(__dirname, 'data.txt');
 
-function check_if_triangle(sides: number[]): boolean{
+function check_if_triangle_1(sides: number[]): boolean{
     let a = sides[0];
     let b = sides[1];
     let c = sides[2];
@@ -15,7 +16,7 @@ for(let element of input){
         function(item){
             return parseInt(item, 10);
     });
-    if(check_if_triangle(sides)){
+    if(check_if_triangle_1(sides)){
         num_possible++;
     }
 }

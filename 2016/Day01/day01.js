@@ -1,4 +1,4 @@
-const input = require('./input');
+import {input} from './input.js'
 
 let status = {x: 0, y: 1, coodinates: {x: 0, y: 0}}
 let visit_log = []

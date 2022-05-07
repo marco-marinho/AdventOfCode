@@ -1,4 +1,5 @@
-const input: string[] = require('./input');
+import {parseLines} from '../Util';
+let input  = parseLines(__dirname, 'data.txt');
 
 function range(start: number, stop: number, step: number): number[]{
     if (typeof stop == 'undefined') {

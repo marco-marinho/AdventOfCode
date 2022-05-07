@@ -1,4 +1,6 @@
-const input: string[] = require('./input.js');
+import {parseLines} from '../Util';
+
+let input  = parseLines(__dirname, 'data.txt');
 const keypad: number[][] = [[1,2,3],[4,5,6],[7,8,9]]
 class password_presser {
     x: number;
@@ -31,14 +33,14 @@ class password_presser {
     }
 }
 
-const presser = new password_presser();
+const presser_2 = new password_presser();
 
 
 for (let element of input) {
     element = element.replace('\n', '');
     for (const inner of element) {
-        presser.move(inner);
+        presser_2.move(inner);
     }
-    console.log(keypad[presser.y][presser.x])
+    console.log(keypad[presser_2.y][presser_2.x])
 }
 
