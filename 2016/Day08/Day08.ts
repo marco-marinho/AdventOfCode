@@ -1,6 +1,4 @@
 import {parseLines} from '../Util';
-
-
 let data = parseLines(__dirname, 'data.txt');
 
 const rect = Symbol('rect');
@@ -19,12 +17,12 @@ function tasks() {
         let command = parse_command(entry);
         execute_command(command, grid);
     }
-    console.log('Task 01: ' + count_pixesl(grid));
+    console.log('Task 01: ' + count_pixels(grid));
     console.log('Task 02: ');
     print_grid(grid);
 }
 
-function count_pixesl(grid: boolean[][]): number {
+function count_pixels(grid: boolean[][]): number {
     let total = 0;
     for (let row of grid) {
         total = row.reduce((acc, element) => element ? acc+1 : acc, total);
