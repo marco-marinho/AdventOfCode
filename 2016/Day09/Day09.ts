@@ -1,6 +1,6 @@
 import {parseLines} from '../Util';
 let data = parseLines(__dirname, 'data.txt');
-let regex_token = RegExp('\\([0-9]+x[0-9]+\\)')
+let regex_token = RegExp('\\(\\d+x\\d+\\)')
 
 task_01();
 task_02();
@@ -58,4 +58,3 @@ function expand(input: string): number {
     output += input.length;
     return output;
 }
-
